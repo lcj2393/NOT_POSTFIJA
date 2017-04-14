@@ -3,15 +3,15 @@
 #include<string.h>
 
 struct pila{
-    int n;
+    int dato;
     struct pila *Siguiente;
 };
 
-void ins_pila(struct pila **Nodo, int n);
+void ins_pila(struct pila **Nodo, int dato);
 struct pila *nuevoElemento();
 int quitar_pila(struct pila **Nodo);
 int vacia_pila(struct pila *Nodo);
-int operacion(int n1, int n2, char caract);
+int operacion(int dato1, int dato2, char caract);
 void conversion(struct pila **Nodo, char cad[]);
 void mostrar_pila(struct pila **Nodo);
 
@@ -37,24 +37,24 @@ struct pila *nuevoElemento()
     return (struct pila *)malloc(sizeof(struct pila));
 }
 
-void ins_pila(struct pila **Nodo, int n)
+void ins_pila(struct pila **Nodo, int dato)
 {
     struct pila *nuevo=NULL;
     nuevo=nuevoElemento();
-    nuevo->n=n;
+    nuevo->dato=dato;
     nuevo->Siguiente=*Nodo;
     *Nodo=nuevo;
 }
 
 int quitar_pila(struct pila **Nodo)
 {
-    int n;
+    int num;
     struct pila *aux=NULL;
-    n=(*Nodo)->n;
+    num=(*Nodo)->dato;
     aux=*Nodo;
     *Nodo=aux->Siguiente;
     free(aux);
-    return n;
+    return num;
 }
 
 
@@ -65,19 +65,19 @@ int vacia_pila(struct pila *Nodo)
     return 1;
 }
 
-int operacion(int n1, int n2, char caract)
+int operacion(int dato1, int dato2, char caract)
 {
     int r;
     if(caract=='*')
-        r= n1*n2;
+        r= dato1*dato2;
     if(caract=='-')
-        r= n1-n2;
+        r= dato1-dato2;
     if(caract=='+')
-        r= n1+n2;
+        r= dato1+dato2;
     if(caract=='/')// verificar que n2 no sea 0
     {
-        if(n2!=0)
-            r= n1/n2;
+        if(dato2!=0)
+            r= dato1/dato2;
     }
     return r;
 }
@@ -104,7 +104,7 @@ void mostrar_pila(struct pila **Nodo)
     struct pila *aux=NULL;
     aux=*Nodo;
     while(aux!=NULL){
-        printf("%d",aux->n);
+        printf("%d",aux->dato);
         aux=aux->Siguiente;
     }
 }
